@@ -1,8 +1,11 @@
-﻿using StayOS.Models.VisualInterfaces;
-using StayOS.Models.Services;
+﻿using StayOS.Models.Services;
+using Newtonsoft.Json;
+using StayOS.Models.Users;
+using StayOS.Models.Interface;
 
 namespace StayOS.Main
 {
+    }
     public class Program
     {
         public static void Main (string [] args)
@@ -22,6 +25,15 @@ namespace StayOS.Main
                     {
                         case "1": // Login Page
                         VisualInterfaces.Redirect("Login");
+                        (string Nome, string Login, string Senha, string Cargo) = UserCredentials.LoginValidation();
+                            if (Nome != "" && Login != "" && Senha != "")
+                            {
+                                VisualInterfaces.Redirect("Menu Principal");
+                                if (Cargo == "Administrador")
+                                {
+                                    AdminServices.MenuAdmin(Nome, Login, Senha);
+                                }
+                            }
                         break;
 
                         case "2": // AboutMe Page
@@ -36,13 +48,31 @@ namespace StayOS.Main
                 }
                 catch (ArgumentNullException)
                 {
-                    Console.WriteLine("Valor Inválido");
+                    throw new ArgumentException("Valor Inválido");
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Valor Inválido");
+                    throw new ArgumentException("Valor Inválido");
                 }
-                }
+            }
         }
     }
-}
+
+    public class FirstAccess
+    {
+        public string firstAccess { get; set; }
+        public static void PrimeiroAcesso()
+        {
+            string json = File.ReadAllText("Models/Arquivos/firstaccess.json");
+            string firstAccess = JsonConvert.DeserializeObject<string>(json);
+
+            if (firstAccess != "true")
+            {
+                firstAccess = "true";
+                json = JsonConvert.SerializeObject(firstAccess, Formatting.Indented);
+                File.WriteAllText("Models/Arquivos/firstaccess.json", json);
+                UserCredentials.SetAdmin();
+            }
+        }
+
+    }

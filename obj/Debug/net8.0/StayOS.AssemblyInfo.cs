@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StayOS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a00266f304097c69df1227a17a2f710f79d16ff0")]
 [assembly: System.Reflection.AssemblyProductAttribute("StayOS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StayOS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
